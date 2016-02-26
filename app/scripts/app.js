@@ -57,11 +57,11 @@ $(function() {
     }
   });
 
-  $('#led').on('mousedown,touchstart', function() {
+  $('#led').on('mousedown touchstart', function() {
       sendMeep(ledOn);
     $('#led').addClass("led-red-on");
   })
-  $('#led').on('mouseup,touchend', function() {
+  $('#led').on('mouseup touchend', function() {
     sendMeep(ledOff);
     $('#led').removeClass("led-red-on");
   })
