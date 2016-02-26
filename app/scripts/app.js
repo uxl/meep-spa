@@ -1,5 +1,10 @@
 var channel;
 
+//commands
+var ledOn = {"led": true};
+var ledOff = {"led": false};
+var dialVal = {};
+
 var startMeep = function() {
   channel = new HydnaChannel('ulx.hydna.net/test', 'rw');
 
@@ -28,10 +33,12 @@ var startMeep = function() {
   }
 }
 var sendMeep = function(msg){
+  var data = JSON.stringify(msg);
   try {
-    channel.send(msg);
+    channel.send(data);
   } catch (e) {
-    offline();
+    console.log(e);
+    //offline();
   }
 }
 var offline = function(){
@@ -45,16 +52,17 @@ $(function() {
     angleOffset : -125,
     angleArc : 250,
     'release' : function (v) {
-      sendMeep("{'dial':" + v + "}");
+      dialVal = {"dial": v};
+      sendMeep(dialVal);
     }
   });
 
   $('#led').on('mousedown', function() {
-    sendMeep("{'led': true}");
+      sendMeep(ledOn);
     $('#led').addClass("led-red-on");
   })
   $('#led').on('mouseup', function() {
-    sendMeep("{'led': false}");
+    sendMeep(ledOff);
     $('#led').removeClass("led-red-on");
   })
 
