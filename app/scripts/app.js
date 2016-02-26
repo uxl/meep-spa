@@ -2,6 +2,10 @@
 document.ontouchmove = function(event){
     event.preventDefault();
 }
+//disable selection
+document.selectstart = function(event){
+    event.preventDefault();
+}
 
 var channel;
 
