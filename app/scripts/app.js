@@ -1,3 +1,8 @@
+//disable veritcal scroll
+document.ontouchmove = function(event){
+    event.preventDefault();
+}
+
 var channel;
 
 //commands
