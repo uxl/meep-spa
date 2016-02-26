@@ -1,0 +1,33 @@
+
+.header, .footer{
+  border-bottom: 0px;
+  border-top: 0px;
+}
+.spacer{
+  margin-bottom: 30px;
+}
+
+.led-red-off {
+  margin: 0 auto;
+  width: 24px;
+  height: 24px;
+  background-color: #aa0000;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.0) 0 -1px 7px 1px, inset #000000 0 -1px 9px;
+  padding:20px
+}
+.led-red-on {
+    background-color: #ff0000; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 0;
+}
+#connect{
+  margin-bottom: 5px;
+}
+#data{
+  width:80%;
+  margin-left:10%;
+  margin-right:10%;
+  margin-top:5%;
+  background-color: #f7f7ff ;
+  color:#777;
+  padding:10px;
+}
