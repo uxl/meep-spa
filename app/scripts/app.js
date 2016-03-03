@@ -64,7 +64,7 @@ var MEEP = (function($) {
           console.log('data: ' + data["status"]);
         }else{
           for( var prop in data ) {
-          $('#data').html(data[prop].toString());
+          $('#data').html(prop + ' ' + data[prop].toString());
           console.log(data);
         }
       }
