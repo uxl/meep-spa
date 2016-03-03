@@ -59,29 +59,52 @@ var MEEP = (function($) {
       channel.onmessage = function(botMsg) {
         var data = JSON.parse(botMsg.data);
         $('#data').fadeIn();
-        debugger;
-        console.log('data[status]: ' + data["status"]);
-        console.log('data: ' + data);
-        $('#data').html(data);
-
-        if(data["status"] == "hi"){
-          $('#connect').removeClass("btn-danger").addClass("btn-success");
-          $('#connect').html("connected");
+        if(data["status"] !== undefined){
+          $('#data').html(data["status"]);
+          console.log('data: ' + data["status"]);
+        }else{
+          for( var prop in data ) {
+          $('#data').html(data[prop].toString());
+          console.log(data);
         }
-
+      }
+        //if bot syn - acknowledge
+        if(data["status"] == "bot-syn"){
+          sendMeep({
+                "status": "client-ack"
+              });
+          connectGUI();
+        };
+        //if bot ack - GUI update
+        if(data["status"] == "bot-ack"){
+          connectGUI();
+        };
       };
       channel.onopen = function() {
-        var msg = {"status":"client-online"};
+        var msg = {"status":"client-syn"};
         sendMeep(msg);
       };
       channel.onclose = function(event) {
+        $('#data').html("Channel closed: " + event.reason);
         console.log("Channel closed: " + event.reason);
         $('#connect').removeClass("btn-success").addClass("btn-danger");
         $('#connect').html("click to connect");
+        return setTimeout(startMeep, 3000);
       };
       channel.onsignal = function(event) {
         $('#connect').html('signal received: ' + event.data);
       }
+    },
+    connectGUI = function(){
+      console.log("connectGUI");
+      $('#connect').removeClass("btn-danger").addClass("btn-success");
+      $('#connect').html("connected");
+    },
+    disconnectGUI = function(){
+      console.log("disconnectGUI");
+      $('#connect').removeClass("btn-success").addClass("btn-danger");
+      $('#led').removeClass("led-red-on");
+      $('#connect').html("disconnected");
     },
     sendMeep = function(msg) {
       var data = JSON.stringify(msg);
@@ -92,9 +115,7 @@ var MEEP = (function($) {
       }
     },
     offline = function() {
-      $('#connect').removeClass("btn-success").addClass("btn-danger");
-      $('#led').removeClass("led-red-on");
-      $('#data').html('disconnected');
+      disconnectGUI();
     };
   return {
     init: init
