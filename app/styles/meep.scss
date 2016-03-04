@@ -39,7 +39,6 @@ body { overflow: hidden;
   margin-left:10%;
   margin-right:10%;
   margin-top:5%;
-  background-color: #f7f7ff ;
   color:#777;
   padding:10px;
 }
@@ -48,4 +47,10 @@ body { overflow: hidden;
 }
 .sig{
   padding:20px;
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 2) and (min-width: 568px) {
+  .col-sm-6 {
+    float: left;
+    width: 50%;
+  }
 }

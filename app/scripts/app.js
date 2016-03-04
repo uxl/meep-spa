@@ -17,6 +17,7 @@ var MEEP = (function($) {
 
     init = function() {
       console.log('MEEP.init');
+
       //disable veritcal scroll
       document.ontouchmove = function(event) {
           event.preventDefault();
@@ -25,6 +26,7 @@ var MEEP = (function($) {
       document.selectstart = function(event) {
           event.preventDefault();
         }
+
         //dial events
       $(".dial").knob({
         value: 0,
@@ -59,29 +61,31 @@ var MEEP = (function($) {
       channel.onmessage = function(botMsg) {
         var data = JSON.parse(botMsg.data);
         $('#data').fadeIn();
-        if(data["status"] !== undefined){
+        if (data["status"] !== undefined) {
           $('#data').html(data["status"]);
           console.log('data: ' + data["status"]);
-        }else{
-          for( var prop in data ) {
-          $('#data').html(prop + ' ' + data[prop].toString());
-          console.log(data);
+        } else {
+          for (var prop in data) {
+            $('#data').html(prop + ' ' + data[prop].toString());
+            console.log(data);
+          }
         }
-      }
         //if bot syn - acknowledge
-        if(data["status"] == "bot-syn"){
+        if (data["status"] == "bot-syn") {
           sendMeep({
-                "status": "client-ack"
-              });
+            "status": "client-ack"
+          });
           connectGUI();
         };
         //if bot ack - GUI update
-        if(data["status"] == "bot-ack"){
+        if (data["status"] == "bot-ack") {
           connectGUI();
         };
       };
       channel.onopen = function() {
-        var msg = {"status":"client-syn"};
+        var msg = {
+          "status": "client-syn"
+        };
         sendMeep(msg);
       };
       channel.onclose = function(event) {
@@ -95,12 +99,12 @@ var MEEP = (function($) {
         $('#connect').html('signal received: ' + event.data);
       }
     },
-    connectGUI = function(){
+    connectGUI = function() {
       console.log("connectGUI");
       $('#connect').removeClass("btn-danger").addClass("btn-success");
       $('#connect').html("connected");
     },
-    disconnectGUI = function(){
+    disconnectGUI = function() {
       console.log("disconnectGUI");
       $('#connect').removeClass("btn-success").addClass("btn-danger");
       $('#led').removeClass("led-red-on");
