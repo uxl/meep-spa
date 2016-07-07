@@ -59,7 +59,7 @@ var MEEP = (function($) {
           if(dialInt === null){
             dialInt = setInterval(function(){
               sendMeep(dialVal);
-            }, 100);
+            }, 200);
           }
           dialVal = {
             "dial": Math.floor(v)
