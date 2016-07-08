@@ -59,7 +59,7 @@ var MEEP = (function($) {
           if(dialInt === null){
             dialInt = setInterval(function(){
               sendMeep(dialVal);
-            }, 200); //200 for normal 
+            }, 1000/8); //200 for normal
           }
           dialVal = {
             "dial": Math.floor(v)
@@ -107,8 +107,16 @@ var MEEP = (function($) {
           console.log('data: ' + data.status);
         } else {
           for (var prop in data) {
+            //update dial
+            // if(data.status)
+            if(prop == 'dial'){
+              $('.dial').val(data[prop]).trigger('change');
+            }
+            //console.log("wooo: " + data[prop] );
+
             $('#data').html(prop + ' ' + data[prop].toString());
             console.log(data);
+
           }
         }
         //if bot syn - acknowledge
