@@ -1,4 +1,21 @@
+var indexClosure = (function(i, id, value) {
+
+  console.log('id', id);
+   var i = i;
+  // var id = id;
+  // var value = value;
+
+  return function(i,id,value) {
+    var j = i;
+    console.log('j', j);
+
+    Sliders.updateValue(j, $('#' + id), value);
+  };
+})();
+
 $(function() {
+
+
 
   var canvas = document.getElementById("canvas"),
     context = canvas.getContext("2d"),
@@ -77,16 +94,14 @@ $(function() {
       arm3.x = arm2.getEndX();
       arm3.y = arm2.getEndY();
 
-      angle += 0.05;
+      //angle += 0.05;
 
       arm1.render(context);
       arm2.render(context);
       arm3.render(context);
 
       //updateSliders
-
-      Sliders.updateSliders();
-
+      //Sliders.updateSliders();
 }
 
     },
@@ -122,8 +137,8 @@ $(function() {
 
     //listeners
     $(".servos").change(function() {
-			updateArms();
       Sliders.updateSliders();
+      updateArms();
 		});
     Sliders.create(6);
     Sliders.updateSliders();
