@@ -33,6 +33,31 @@ $(function() {
 
 		//renderFrame animation frame of animation
     renderFrame = function() {
+
+    // the animation loop calculates time elapsed since the last loop
+    // and only draws if your specified fps interval is achieved
+
+    // request another frame
+
+    requestAnimationFrame(renderFrame);
+
+    // calc elapsed time since last loop
+
+    now = Date.now();
+    elapsed = now - then;
+
+    // if enough time has elapsed, draw the next frame
+
+    if (elapsed > fpsInterval) {
+
+        // Get ready for next frame by setting then=now, but also adjust for your
+        // specified fpsInterval not being a multiple of RAF's interval (16.7ms)
+        then = now - (elapsed % fpsInterval);
+
+        // Put your drawing code here
+
+
+
       context.clearRect(0, 0, width, height);
 
       var a1 = Math.sin(angle) * getRange(arm1.min, arm1.max);
@@ -62,9 +87,7 @@ $(function() {
 
       Sliders.updateSliders();
 
-
-			//change to framerate
-      requestAnimationFrame(renderFrame);
+}
 
     },
 
@@ -107,6 +130,6 @@ $(function() {
     createArms();
 
 
-    startAnimating();
+    startAnimating(5);
 
 });
