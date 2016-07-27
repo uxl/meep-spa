@@ -19,7 +19,7 @@ var Sliders = Sliders || {
   },
   //
   updateValue: function(id, elm, value, dragging) { //need to pass id number
-    if (!dragging) {
+    if(!dragging){
       this.servos[id].slider('setValue', Number(value));
     }
     $("#" + elm + "label").html(value);
@@ -48,17 +48,18 @@ var Sliders = Sliders || {
       this.updateValue(i, elm, value, false);
     }
   },
-
   //set pivot point
   init: function(num) {
     this.num = num;
-    for (var i = 1; i < (6 + 1); i++) {
-      (function(i, t){
-        t.servos[i] = $("#servo" + i).slider().on("change", function(e) {
-          Sliders.updateValue(i, this.id, e.value.newValue);
-        });
-      })(i, this);
+    if (!this.initalized) {
+      for (var i = 1; i < (6 + 1); i++) {
+        (function(i, t){
+          t.servos[i] = $("#servo" + i).slider().on("change", function(e) {
+            Sliders.updateValue(i, this.id, e.value.newValue);
+          });
+        })(i, this);
+      }
     }
+    this.initalized = true;
   }
-
 };
