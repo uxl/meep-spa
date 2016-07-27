@@ -109,6 +109,9 @@ var MEEP = (function($) {
           for (var prop in data) {
             //update dial
             // if(data.status)
+            //TODO - Don't fire this if this is the user instance that made the change.
+            // Or check that when we make changes to this it doesn't fire the release event.
+
             if(prop == 'dial'){
               $('.dial').val(data[prop]).trigger('change');
             }

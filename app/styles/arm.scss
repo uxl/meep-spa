@@ -1,0 +1,57 @@
+  .output {
+    padding-left: 20px;
+  }
+  .config {
+    margin-top: 40px;
+    padding-left: 10px;
+    position: relative;
+    display: block;
+  }
+  .config input {
+    width: 45px;
+    font: helvetica, arial;
+    font-size: 0.8em;
+    background-color: #ddd;
+    color: #555;
+    border: 0px;
+    margin: 1px;
+    padding: 2px;
+    text-align: center;
+  }
+  .config .title {
+    text-align: right;
+    padding-right:10px;
+  }
+.sliderval{
+  padding-left: 10px;
+  text-align: right;
+}
+.sliders{
+  margin-top: 20px;
+  margin-left: 20px;
+  display: block;
+  position: relative;
+}
+#canvas{
+  display: block;
+  background-color:#eee;
+  height:400px;
+}
+#servo1 .slider-handle{
+	background: grey;
+}
+// #servo2 .slider-handle{
+// 	background: blue;
+// }
+// #servo3 .slider-handle{
+// 	background: blue;
+// }
+// #servo4 .slider-handle{
+// 	background: blue;
+// }
+#servo5 .slider-handle{
+	background: grey;
+}
+#servo6 .slider-handle{
+	background: grey;
+}
