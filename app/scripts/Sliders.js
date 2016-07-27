@@ -21,7 +21,7 @@ var Sliders = Sliders || {
   updateValue: function(id, elm, value, dragging) { //need to pass id number
     // console.log('id', id);
     console.log('elm', elm);
-    if (!dragging) {
+    if(!dragging){
       this.servos[id].slider('setValue', Number(value));
     }
     $(elm.selector + "label").html(value);
@@ -51,15 +51,21 @@ var Sliders = Sliders || {
       this.updateValue(i, elm, value, false);
     }
   },
-
   //set pivot point
   init: function(num) {
     this.num = num;
-    for (var i = 1; i < (6 + 1); i++) {
-      this.servos[i] = $("#servo" + i).slider().on("change", function(e) {
-        indexClosure(i, this.id, e.value.newValue);
-      });
+    if (!this.initalized) {
+      for (var z = 1; z < (num + 1); z++) {
+        var index = (function(){
+          return z;
+        })();
+        // console.log('index',index);
+        this.servos[z] = $("#servo" + z).slider().on("change", function(e) {
+          Sliders.updateValue(index, $('#' + this.id), e.value.newValue, true);
+           console.log('index', index);
+        });
+      }
     }
+    this.initalized = true;
   }
-
 };
