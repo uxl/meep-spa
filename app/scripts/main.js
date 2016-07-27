@@ -1,18 +1,3 @@
-var indexClosure = (function(i, id, value) {
-
-  console.log('id', id);
-   var i = i;
-  // var id = id;
-  // var value = value;
-
-  return function(i,id,value) {
-    var j = i;
-    console.log('j', j);
-
-    Sliders.updateValue(j, $('#' + id), value);
-  };
-})();
-
 $(function() {
 
 

@@ -19,13 +19,11 @@ var Sliders = Sliders || {
   },
   //
   updateValue: function(id, elm, value, dragging) { //need to pass id number
-    // console.log('id', id);
-    console.log('elm', elm);
     if (!dragging) {
       this.servos[id].slider('setValue', Number(value));
     }
-    $(elm.selector + "label").html(value);
-    $(elm.selector + "value").val(value);
+    $("#" + elm + "label").html(value);
+    $("#" + elm + "value").val(value);
   },
   updateRange: function(id, elm, min, max) {
     var min = Number(min);
@@ -42,11 +40,10 @@ var Sliders = Sliders || {
   updateSliders: function() {
     console.log('Sliders.updateSliders');
     for (var i = 1; i < (this.num + 1); i++) {
-      var elm = $('#servo' + i);
+      var elm = 'servo' + i;
       var min = $('#servo' + i + 'min').val();
       var max = $('#servo' + i + 'max').val();
       var value = $('#servo' + i + 'value').val();
-
       this.updateRange(i, elm, min, max);
       this.updateValue(i, elm, value, false);
     }
@@ -56,9 +53,11 @@ var Sliders = Sliders || {
   init: function(num) {
     this.num = num;
     for (var i = 1; i < (6 + 1); i++) {
-      this.servos[i] = $("#servo" + i).slider().on("change", function(e) {
-        indexClosure(i, this.id, e.value.newValue);
-      });
+      (function(i, t){
+        t.servos[i] = $("#servo" + i).slider().on("change", function(e) {
+          Sliders.updateValue(i, this.id, e.value.newValue);
+        });
+      })(i, this);
     }
   }
 
