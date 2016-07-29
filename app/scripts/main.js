@@ -12,7 +12,7 @@ $(function() {
     arm2 = null,
     angle = 0,
     fps = 5,
-    rangeLoop = true,
+    rangeLoop = false, //need to fix
 
     //render varoiables
     stop = false,
@@ -41,33 +41,50 @@ $(function() {
 
       // the animation loop calculates time elapsed since the last loop
       // and only draws if your specified fps interval is achieved
-
       // request another frame
-
       requestAnimationFrame(renderFrame);
-
       // calc elapsed time since last loop
       now = Date.now();
       elapsed = now - then;
-
       // if enough time has elapsed, draw the next frame
       if (elapsed > fpsInterval) {
-
         // Get ready for next frame by setting then=now, but also adjust for your
         // specified fpsInterval not being a multiple of RAF's interval (16.7ms)
         then = now - (elapsed % fpsInterval);
 
 
         if (rangeLoop) {
-          angle += 0.05;
+          updateLoop();
         }
-        // $('#servo1value').val(Math.floor((arm0.max - arm0.min) * a1 / Math.PI + Math.abs(orientation) / 2));
-        // $('#servo2value').val(Math.floor((arm1.max - arm1.min) * a2 / Math.PI + Math.abs(orientation) / 2));
-        // $('#servo3value').val(Math.floor((arm2.max - arm2.min) * a3 / Math.PI + Math.abs(orientation) / 2));
 
         renderArms();
         Sliders.updateSliders();
       }
+    },
+    updateLoop = function(){
+      console.log("updateLoop");
+
+      context.clearRect(0, 0, width, height);
+
+      var a1 = Math.sin(angle) * getRange(arm1.min, arm1.max);
+      var a2 = Math.sin(angle) * getRange(arm1.min, arm2.max);
+      var a3 = Math.sin(angle) * getRange(arm1.min, arm2.max);
+
+			//animate back and forth
+      arm1.angle = a1;
+      arm2.angle = a2;
+      arm3.angle = a3;
+
+      arm2.x = arm1.getEndX();
+      arm2.y = arm1.getEndY();
+      arm3.x = arm2.getEndX();
+      arm3.y = arm2.getEndY();
+
+      angle += 0.05;
+
+      arm1.render(context);
+      arm2.render(context);
+      arm3.render(context);
     },
     renderArms = function() {
 
