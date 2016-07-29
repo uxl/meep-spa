@@ -25,6 +25,7 @@
 .sliderval{
   padding-left: 10px;
   text-align: right;
+  font-size: 1.2em;
 }
 .sliders{
   margin-top: 20px;
@@ -32,26 +33,22 @@
   display: block;
   position: relative;
 }
+.slider{
+  //margin-bottom:10px;
+  padding-top: 20px;
+
+}
 #canvas{
   display: block;
   background-color:#eee;
   height:400px;
 }
-#servo1 .slider-handle{
+#servo0 .slider-handle{
 	background: grey;
 }
-// #servo2 .slider-handle{
-// 	background: blue;
-// }
-// #servo3 .slider-handle{
-// 	background: blue;
-// }
-// #servo4 .slider-handle{
-// 	background: blue;
-// }
+#servo4 .slider-handle{
+	background: grey;
+}
 #servo5 .slider-handle{
-	background: grey;
-}
-#servo6 .slider-handle{
 	background: grey;
 }

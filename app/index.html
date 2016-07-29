@@ -47,25 +47,25 @@
             </div>
             <div class="col-xs-12 col-sm-6">
               <div class="sliders">
+                <b>Servo angles</b><br><br>
 
-                <input id="servo6" type="number" data-slider-id="servo6" data-slider-min="0" data-slider-max="180" data-slider-tooltip="hide" data-slider-step="1" data-slider-value="0" />
-                <span class="sliderval" id="servo6label">0</span>
-                <br>
-                <input id="servo5" type="number" data-slider-id="servo5" data-slider-min="0" data-slider-max="180" data-slider-tooltip="hide" data-slider-step="1" data-slider-value="0" />
+                <input class="slider" id="servo5" type="number" data-slider-id="servo5" data-slider-min="0" data-slider-max="180" data-slider-tooltip="hide" data-slider-step="1" data-slider-value="0" />
                 <span class="sliderval" id="servo5label">0</span>
-                <br>
-                <input id="servo4" type="number" data-slider-id="servo4" data-slider-min="0" data-slider-max="180" data-slider-tooltip="hide" data-slider-step="1" data-slider-value="0" />
+
+                <input class="slider" id="servo4" type="number" data-slider-id="servo4" data-slider-min="0" data-slider-max="180" data-slider-tooltip="hide" data-slider-step="1" data-slider-value="0" />
                 <span class="sliderval" id="servo4label">0</span>
-                <br>
-                <input id="servo3" type="number" data-slider-id="servo3" data-slider-min="0" data-slider-max="180" data-slider-tooltip="hide" data-slider-step="1" data-slider-value="0" />
+
+                <input class="slider" id="servo3" type="number" data-slider-id="servo3" data-slider-min="0" data-slider-max="180" data-slider-tooltip="hide" data-slider-step="1" data-slider-value="0" />
                 <span class="sliderval" id="servo3label">0</span>
-                <br>
-                <input id="servo2" type="number" data-slider-id="servo2" data-slider-min="0" data-slider-max="180" data-slider-tooltip="hide" data-slider-step="1" data-slider-value="0" />
+
+                <input class="slider" id="servo2" type="number" data-slider-id="servo2" data-slider-min="0" data-slider-max="180" data-slider-tooltip="hide" data-slider-step="1" data-slider-value="0" />
                 <span class="sliderval" id="servo2label">0</span>
-                <br>
-                <input id="servo1" type="number" data-slider-id="servo1" data-slider-min="0" data-slider-max="180" data-slider-tooltip="hide" data-slider-step="1" data-slider-value="0" />
+
+                <input class="slider" id="servo1" type="number" data-slider-id="servo1" data-slider-min="0" data-slider-max="180" data-slider-tooltip="hide" data-slider-step="1" data-slider-value="0" />
                 <span class="sliderval" id="servo1label">0</span>
 
+                <input class="slider" id="servo0" type="number" data-slider-id="servo0" data-slider-min="0" data-slider-max="180" data-slider-tooltip="hide" data-slider-step="1" data-slider-value="0" />
+                <span class="sliderval" id="servo0label">0</span>
 
 
 
@@ -80,6 +80,21 @@
                     <td>value</td>
                   </tr>
                   <tr>
+                    <td class="title">servo0</td>
+                    <td>
+                      <input class="servos" type="number" id="servo0min" value="0">
+                    </td>
+                    <td>
+                      <input class="servos" type="number" id="servo0max" value="180">
+                    </td>
+                    <td>
+                      base
+                    </td>
+                    <td>
+                      <input class="servos" type="number" id="servo0value" value="0">
+                    </td>
+                  </tr>
+                  <tr>
                     <td class="title">servo1</td>
                     <td>
                       <input class="servos" type="number" id="servo1min" value="0">
@@ -88,7 +103,7 @@
                       <input class="servos" type="number" id="servo1max" value="180">
                     </td>
                     <td>
-                      base
+                      <input class="servos" type="number" id="servo1len" value="80">
                     </td>
                     <td>
                       <input class="servos" type="number" id="servo1value" value="0">
@@ -103,7 +118,7 @@
                       <input class="servos" type="number" id="servo2max" value="180">
                     </td>
                     <td>
-                      <input class="servos" type="number" id="servo2len" value="100">
+                      <input class="servos" type="number" id="servo2len" value="50">
                     </td>
                     <td>
                       <input class="servos" type="number" id="servo2value" value="0">
@@ -118,7 +133,7 @@
                       <input class="servos" type="number" id="servo3max" value="180">
                     </td>
                     <td>
-                      <input class="servos" type="number" id="servo3len" value="50">
+                      <input class="servos" type="number" id="servo3len" value="20">
                     </td>
                     <td>
                       <input class="servos" type="number" id="servo3value" value="0">
@@ -155,21 +170,6 @@
                       </td>
                     </tr>
                     <tr>
-                      <td class="title">servo6</td>
-                      <td>
-                        <input class="servos" type="number" id="servo6min" value="0">
-                      </td>
-                      <td>
-                        <input class="servos" type="number" id="servo6max" value="180">
-                      </td>
-                      <td>
-                        claw
-                      </td>
-                      <td>
-                        <input class="servos" type="number" id="servo6value" value="0">
-                      </td>
-                    </tr>
-                    <tr>
                       <td class="title">orient</td>
                       <td>
                         <input class="servos" type="number" id="orientation" value="-180">
@@ -190,7 +190,6 @@
       <!-- build:js(.) scripts/vendor.js -->
       <!-- bower:js -->
       <script src="/bower_components/jquery/dist/jquery.js"></script>
-      <script src="/bower_components/hydna/dist/hydna.js"></script>
       <script src="/bower_components/hydna/dist/hydna.min.js"></script>
       <!-- endbower -->
       <!-- endbuild -->

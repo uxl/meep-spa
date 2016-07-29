@@ -5,14 +5,14 @@ var Sliders = Sliders || {
   initialized: false,
   servos: [],
 
-  //translate min max to % of Math.PI (13.1)
+  //translate min max to % of Math.PI (3.14159...)
   getRange: function(min, max) {
     var range = max - min;
     return range * Math.PI / 360;
   },
   create: function(number) {
     console.log('Sliders.create');
-    this.num = 6;
+    this.num = number;
     var obj = Object.create(this);
     obj.init(number);
     return obj;
@@ -38,8 +38,8 @@ var Sliders = Sliders || {
     }
   },
   updateSliders: function() {
-    console.log('Sliders.updateSliders');
-    for (var i = 1; i < (this.num + 1); i++) {
+    // console.log('Sliders.updateSliders');
+    for (var i = 0; i < this.num; i++) {
       var elm = 'servo' + i;
       var min = $('#servo' + i + 'min').val();
       var max = $('#servo' + i + 'max').val();
@@ -52,7 +52,8 @@ var Sliders = Sliders || {
   init: function(num) {
     this.num = num;
     if (!this.initalized) {
-      for (var i = 1; i < (6 + 1); i++) {
+      for (var i = 0; i < this.num; i++) {
+        //closure nessessary for event parameters
         (function(i, t){
           t.servos[i] = $("#servo" + i).slider().on("change", function(e) {
             Sliders.updateValue(i, this.id, e.value.newValue);
