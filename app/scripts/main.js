@@ -1,7 +1,5 @@
 $(function() {
 
-
-
   var canvas = document.getElementById("canvas"),
     context = canvas.getContext("2d"),
     width = canvas.width = $('#canvas_col').width(),
@@ -19,7 +17,7 @@ $(function() {
     stop = false,
     frameCount = 0,
     $results = $("#results"),
-    fps, fpsInterval, startTime, now, then, elapsed,
+    fpsInterval, startTime, now, then, elapsed,
 
     // initialize the timer variables and start the animation
     startAnimating = function(fps) {
@@ -61,7 +59,7 @@ $(function() {
         //sendpayload
         if(payload.length > 0){
           //remove cmds that don't have
-          MEEP.sendMeep({'servo': payload});
+          Meep.sendMeep({'servo': payload});
           payload = [];
         }
 

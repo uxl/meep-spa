@@ -1,13 +1,12 @@
 /* global console, jQuery, $, TrackGA */
-// meep robot
-// Mullen - Wilkinson 2016
+// communications script
 
 (function () {
    'use strict';
    // this function is strict...
 }());
 
-var MEEP = (function($) {
+var Meep = (function($) {
   //vars
   var username = null,
     channel = null,
@@ -18,7 +17,7 @@ var MEEP = (function($) {
       //listen for enter key
       enterListener();
 
-      console.log('MEEP.init');
+      console.log('Meep.init');
       $('#meep').carousel("pause");
 
       $("#register").on("click", function() {
@@ -141,5 +140,5 @@ var MEEP = (function($) {
 }(jQuery));
 
 $(function() {
-  MEEP.init();
+  Meep.init();
 });

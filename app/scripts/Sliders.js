@@ -1,5 +1,6 @@
 /* jshint loopfunc:true */
 //requires jquery
+
 var Sliders = Sliders || {
   num: 0,
   initialized: false,
