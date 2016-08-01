@@ -33,8 +33,8 @@ $(function() {
       var range = max - min;
       return range * Math.PI / 360;
     },
-    getAngle = function(pi){
-      return pi * 360/Math.PI;
+    getAngle = function(pi) {
+      return pi * 360 / Math.PI;
     },
     //renderFrame animation frame of animation
     renderFrame = function() {
@@ -61,7 +61,7 @@ $(function() {
         Sliders.updateSliders();
       }
     },
-    updateLoop = function(){
+    updateLoop = function() {
       console.log("updateLoop");
 
       context.clearRect(0, 0, width, height);
@@ -70,7 +70,7 @@ $(function() {
       var a2 = Math.sin(angle) * getRange(arm1.min, arm2.max);
       var a3 = Math.sin(angle) * getRange(arm1.min, arm2.max);
 
-			//animate back and forth
+      //animate back and forth
       arm1.angle = a1;
       arm2.angle = a2;
       arm3.angle = a3;
@@ -87,21 +87,23 @@ $(function() {
       arm3.render(context);
     },
     renderArms = function() {
+      var p = []; //percent of servo range
+      var a = []; //servo angle value ie. 0 - 3.14
+      var d = []; //servo angle in degrees ie. 0 - 360
+      var servoPayload = []; // array to broadcast
 
-      var p1 = $('#servo1value').val() * 100 / $('#servo1max').val() - $('#servo1min').val();
-      var p2 = $('#servo2value').val() * 100 / $('#servo2max').val() - $('#servo2min').val();
-      var p3 = $('#servo3value').val() * 100 / $('#servo3max').val() - $('#servo3min').val();
-      // debugger;
-      console.log(p1);
-
-      var a1 = p1 * Math.PI / 100;
-      var a2 = p2 * Math.PI / 100;
-      var a3 = p3 * Math.PI / 100;
+      for (var i = 0; i < Sliders.servos.length; i++) {
+        p[i] = Math.floor(Number($('#servo' + i + 'value').val() * 100 / $('#servo' + i + 'max').val() - $('#servo' + i + 'min').val()));
+        a[i] = p[i] * Math.PI / 100;
+        d[i] = p[i] * $('#servo' + i + 'max').val() / 100;
+      }
 
       //update arm angles and x and y
-      arm0.angle = a1;
-      arm1.angle = a2;
-      arm2.angle = a3;
+      //TODO: make dynamic
+
+      arm0.angle = a[1];
+      arm1.angle = a[2];
+      arm2.angle = a[3];
 
       arm1.x = arm0.getEndX();
       arm1.y = arm0.getEndY();
@@ -113,24 +115,28 @@ $(function() {
       arm0.render(context);
       arm1.render(context);
       arm2.render(context);
-      //updateArms();
 
+      //check if new servo data
+      for (var k = 0; k < Sliders.angle.length; k++) {
+        if (Sliders.angle[k] != d[k]) {
+          Sliders.angle[k] = d[k];
+          var name = k;
+          var value = d[k];
+          var tempObj = {};
+          tempObj[name] = value;
+          servoPayload.push(tempObj);
+        }
+      }
+      console.log();
+      //send to meep
+      if(servoPayload.length > 0){
+        MEEP.sendMeep({'servo': servoPayload});
+      }
     },
     //update table and sliders if arm animating
     updateConfig = function() {
       return range * angle / Math.PI + Math.abs(orientation) / 2;
     },
-
-    //update robot arms + send data?
-    // updateArms = function() {
-    //   console.log("updateArms");
-    //   orientation = $('#orientation').val();
-    //
-    //   arm0.init(width / 2, height / 2, $('#servo1len').val(), $('#servo1min').val(), $('#servo1max').val(), orientation);
-    //   arm1.init(arm0.getEndX(), arm0.getEndY(), $('#servo2len').val(), $('#servo2min').val(), $('#servo2max').val(), orientation);
-    //   arm2.init(arm1.getEndX(), arm1.getEndY(), $('#servo3len').val(), $('#servo3min').val(), $('#servo3max').val(), orientation);
-    // },
-
     //define arms
     createArms = function() {
       console.log("createArms");
@@ -144,15 +150,16 @@ $(function() {
       arm2.parent = arm1;
     };
 
-  //listeners
+  //detect changes in table and update arm
   $(".servos").change(function() {
     Sliders.updateSliders();
-    console.log("change of servos");
     renderArms();
+
+
   });
+  //detect changes in slider and update arm
   $(".sliders").change(function() {
     Sliders.updateSliders();
-    console.log("change of servos");
     renderArms();
   });
   Sliders.create(6);

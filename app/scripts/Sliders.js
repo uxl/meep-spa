@@ -4,6 +4,7 @@ var Sliders = Sliders || {
   num: 0,
   initialized: false,
   servos: [],
+  angle: [],
 
   //translate min max to % of Math.PI (3.14159...)
   getRange: function(min, max) {
@@ -24,6 +25,8 @@ var Sliders = Sliders || {
     }
     $("#" + elm + "label").html(value);
     $("#" + elm + "value").val(value);
+    //record angle in array
+    //this.angle[id] = Number(value);
   },
   updateRange: function(id, elm, min, max) {
     var min = Number(min);
@@ -50,7 +53,6 @@ var Sliders = Sliders || {
   },
   //set pivot point
   init: function(num) {
-    this.num = num;
     if (!this.initalized) {
       for (var i = 0; i < this.num; i++) {
         //closure nessessary for event parameters
@@ -59,6 +61,8 @@ var Sliders = Sliders || {
             Sliders.updateValue(i, this.id, e.value.newValue);
           });
         })(i, this);
+        //fill angle[] with default value: 0
+        this.angle[i] = 0;
       }
     }
     this.initalized = true;

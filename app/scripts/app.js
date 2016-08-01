@@ -11,12 +11,6 @@ var MEEP = (function($) {
   //vars
   var username = null,
     channel = null,
-    ledOn = {
-      "led": true
-    },
-    ledOff = {
-      "led": false
-    },
     dialVal = {},
     dialInt = null,
 
@@ -45,39 +39,6 @@ var MEEP = (function($) {
           event.preventDefault();
         };
 
-        //dial events
-      $(".dial").knob({
-
-        value: 0,
-        angleOffset: 0,
-        angleArc: 360,
-        'release' : function(v){
-          clearInterval(dialInt);
-          dialInt = null;
-        },
-        'change': function(v) {
-          if(dialInt === null){
-            dialInt = setInterval(function(){
-              sendMeep(dialVal);
-            }, 1000/8); //200 for normal
-          }
-          dialVal = {
-            "dial": Math.floor(v)
-          };
-          //send meep
-
-
-        }
-      });
-      //led button events
-      $('#led').on('mousedown touchstart', function() {
-        sendMeep(ledOn);
-        $('#led').addClass("led-red-on");
-      });
-      $('#led').on('mouseup touchend', function() {
-          sendMeep(ledOff);
-          $('#led').removeClass("led-red-on");
-        });
         //connect button events
       $('#connect').on('click', function() {
         startMeep();
@@ -174,7 +135,8 @@ var MEEP = (function($) {
       disconnectGUI();
     };
   return {
-    init: init
+    init: init,
+    sendMeep: sendMeep
   };
 }(jQuery));
 
