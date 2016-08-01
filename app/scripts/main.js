@@ -11,8 +11,9 @@ $(function() {
     arm1 = null,
     arm2 = null,
     angle = 0,
-    fps = 5,
+    fps = 15,
     rangeLoop = false, //need to fix
+    payload = [],
 
     //render varoiables
     stop = false,
@@ -57,6 +58,13 @@ $(function() {
           updateLoop();
         }
 
+        //sendpayload
+        if(payload.length > 0){
+          //remove cmds that don't have
+          MEEP.sendMeep({'servo': payload});
+          payload = [];
+        }
+
         renderArms();
         Sliders.updateSliders();
       }
@@ -90,7 +98,6 @@ $(function() {
       var p = []; //percent of servo range
       var a = []; //servo angle value ie. 0 - 3.14
       var d = []; //servo angle in degrees ie. 0 - 360
-      var servoPayload = []; // array to broadcast
 
       for (var i = 0; i < Sliders.servos.length; i++) {
         p[i] = Math.floor(Number($('#servo' + i + 'value').val() * 100 / $('#servo' + i + 'max').val() - $('#servo' + i + 'min').val()));
@@ -120,17 +127,13 @@ $(function() {
       for (var k = 0; k < Sliders.angle.length; k++) {
         if (Sliders.angle[k] != d[k]) {
           Sliders.angle[k] = d[k];
-          var name = k;
-          var value = d[k];
-          var tempObj = {};
-          tempObj[name] = value;
-          servoPayload.push(tempObj);
+          var tempObj = {id: k, deg: d[k]};
+          //remove id from previous payload
+          payload = $.grep(payload, function(e){
+               return e.id != k;
+          });
+          payload.push(tempObj);
         }
-      }
-      console.log();
-      //send to meep
-      if(servoPayload.length > 0){
-        MEEP.sendMeep({'servo': servoPayload});
       }
     },
     //update table and sliders if arm animating
