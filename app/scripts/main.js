@@ -17,7 +17,7 @@ $(function() {
       {id:0, val: 90, min: 0, max: 180},             //base
       {id:1, val: 90, min: 0, max: 180, len: 100},   //seg1
       {id:2, val: 0, min: 0, max: 180, len: 80},    //seg2
-      {id:3, val: 0, min: 0, max: 180, len: 100},   //seg3
+      {id:3, val: 0, min: 0, max: 180, len: 60},   //seg3
       {id:4, val: 0, min: 0, max: 180},             //wrist
       {id:5, val: 0, min: 0, max: 180}              //grip
     ],
