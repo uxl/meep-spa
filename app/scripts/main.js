@@ -5,6 +5,7 @@ $(function() {
     width = canvas.width = $('#canvas_col').width(),
     height = canvas.height = $('#canvas_col').height(),
     orientation = -180, //up
+
     arm0 = null,
     arm1 = null,
     arm2 = null,
@@ -12,6 +13,14 @@ $(function() {
     fps = 6,
     rangeLoop = false, //need to fix
     payload = [],
+    servos = [
+      {id:0, val: 90, min: 0, max: 180},             //base
+      {id:1, val: 90, min: 0, max: 180, len: 100},   //seg1
+      {id:2, val: 0, min: 0, max: 180, len: 80},    //seg2
+      {id:3, val: 0, min: 0, max: 180, len: 100},   //seg3
+      {id:4, val: 0, min: 0, max: 180},             //wrist
+      {id:5, val: 0, min: 0, max: 180}              //grip
+    ],
 
     //render varoiables
     stop = false,
@@ -99,7 +108,7 @@ $(function() {
 
       for (var i = 0; i < Sliders.servos.length; i++) {
         p[i] = Math.floor(Number($('#servo' + i + 'value').val() * 100 / $('#servo' + i + 'max').val() - $('#servo' + i + 'min').val()));
-        a[i] = p[i] * Math.PI / 100;
+        a[i] = p[i] * Math.PI / 100 ;
         d[i] = p[i] * $('#servo' + i + 'max').val() / 100;
       }
 
@@ -122,6 +131,7 @@ $(function() {
       arm2.render(context);
 
       //check if new servo data
+
       for (var k = 0; k < Sliders.angle.length; k++) {
         if (Sliders.angle[k] != d[k]) {
           Sliders.angle[k] = d[k];
@@ -132,6 +142,20 @@ $(function() {
           });
           payload.push(tempObj);
         }
+      }
+    },
+    //initialize values of gui from params at the tooltip
+    initGui = function(){
+      //set orientation
+      $('#orientation').val(orientation);
+      for(var i = 0; i < servos.length; i++){
+        //update input fields
+        $('#servo'+ i +'len').val(servos[i].len);
+        $('#servo'+ i +'min').val(servos[i].min);
+        $('#servo'+ i +'max').val(servos[i].max);
+        $('#servo'+ i +'value').val(servos[i].val);
+        //update sliders
+        Sliders.updateSliders();
       }
     },
     //update table and sliders if arm animating
@@ -164,9 +188,9 @@ $(function() {
     renderArms();
   });
   Sliders.create(6);
-  Sliders.updateSliders();
+  // Sliders.updateSliders();
+  initGui();
   createArms();
-
   startAnimating(fps);
 
 });
