@@ -9,7 +9,7 @@ $(function() {
     arm1 = null,
     arm2 = null,
     angle = 0,
-    fps = 15,
+    fps = 6,
     rangeLoop = false, //need to fix
     payload = [],
 
