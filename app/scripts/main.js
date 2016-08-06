@@ -129,7 +129,7 @@ $(function() {
         $('#servo'+ i +'max').val(servos[i].max);
         $('#servo'+ i +'value').val(servos[i].val);
         //update sliders
-        Sliders.updateSliders();
+        //Sliders.updateSliders();
       }
     },
     //update table and sliders if arm animating
