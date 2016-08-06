@@ -21,7 +21,7 @@ var Sliders = Sliders || {
   },
   //
   updateValue: function(id, elm, value, dragging) { //need to pass id number
-    if(!dragging){
+    if (!dragging) {
       this.servos[id].slider('setValue', Number(value));
     }
     $("#" + elm + "label").html(value);
@@ -53,17 +53,17 @@ var Sliders = Sliders || {
     }
   },
   //set pivot point
-  init: function(num) {
+  init: function() {
     if (!this.initalized) {
       for (var i = 0; i < this.num; i++) {
         //closure nessessary for event parameters
-        (function(i, t){
+        (function(i, t) {
           t.servos[i] = $("#servo" + i).slider().on("change", function(e) {
             Sliders.updateValue(i, this.id, e.value.newValue);
           });
         })(i, this);
         //fill angle[] with default value: 0
-        this.angle[i] = 0;
+        this.angle[i] = 5;
       }
     }
     this.initalized = true;
