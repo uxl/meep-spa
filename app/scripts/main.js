@@ -1,3 +1,7 @@
+//jquery function to check for dom ready
+//TODO: add servos arms to property of an Object
+//loop through those
+
 $(function() {
 
   var canvas = document.getElementById("canvas"),
@@ -11,18 +15,18 @@ $(function() {
     arm2 = null,
     angle = 0,
     fps = 6,
-    rangeLoop = false, //need to fix
+    //rangeLoop = false, //need to fix
     payload = [],
     servos = [
-      {id:0, val: 90, min: 0, max: 180},             //base
-      {id:1, val: 90, min: 0, max: 180, len: 100},   //seg1
-      {id:2, val: 0, min: 0, max: 180, len: 80},    //seg2
-      {id:3, val: 0, min: 0, max: 180, len: 60},   //seg3
-      {id:4, val: 0, min: 0, max: 180},             //wrist
-      {id:5, val: 0, min: 0, max: 180}              //grip
+      {id:0, val: 90, min: 5, max: 170},             //base
+      {id:1, val: 90, min: 5, max: 170, len: 100},   //seg1
+      {id:2, val: 5, min: 5, max: 170, len: 80},    //seg2
+      {id:3, val: 5, min: 5, max: 170, len: 60},   //seg3
+      {id:4, val: 5, min: 5, max: 170},             //wrist
+      {id:5, val: 5, min: 5, max: 170}              //grip
     ],
 
-    //render varoiables
+      //render varoiables
     stop = false,
     frameCount = 0,
     $results = $("#results"),
@@ -60,12 +64,7 @@ $(function() {
         // specified fpsInterval not being a multiple of RAF's interval (16.7ms)
         then = now - (elapsed % fpsInterval);
 
-
-        if (rangeLoop) {
-          updateLoop();
-        }
-
-        //sendpayload
+        //sendpayload - object looks like this [{id:1, deg:90},{id:3, 10}]
         if(payload.length > 0){
           //remove cmds that don't have
           Meep.sendMeep({'servo': payload});
@@ -75,31 +74,6 @@ $(function() {
         renderArms();
         Sliders.updateSliders();
       }
-    },
-    updateLoop = function() {
-      console.log("updateLoop");
-
-      context.clearRect(0, 0, width, height);
-
-      var a1 = Math.sin(angle) * getRange(arm1.min, arm1.max);
-      var a2 = Math.sin(angle) * getRange(arm1.min, arm2.max);
-      var a3 = Math.sin(angle) * getRange(arm1.min, arm2.max);
-
-      //animate back and forth
-      arm1.angle = a1;
-      arm2.angle = a2;
-      arm3.angle = a3;
-
-      arm2.x = arm1.getEndX();
-      arm2.y = arm1.getEndY();
-      arm3.x = arm2.getEndX();
-      arm3.y = arm2.getEndY();
-
-      angle += 0.05;
-
-      arm1.render(context);
-      arm2.render(context);
-      arm3.render(context);
     },
     renderArms = function() {
       var p = []; //percent of servo range
@@ -179,8 +153,6 @@ $(function() {
   $(".servos").change(function() {
     Sliders.updateSliders();
     renderArms();
-
-
   });
   //detect changes in slider and update arm
   $(".sliders").change(function() {
