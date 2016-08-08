@@ -18,7 +18,7 @@ $(function() {
     //rangeLoop = false, //need to fix
     payload = [],
     servos = [
-      {id:20, val: 90, min: 5, max: 175},             //base
+      {id:0, val: 90, min: 20, max: 175},             //base
       {id:1, val: 90, min: 5, max: 175, len: 100},   //seg1
       {id:2, val: 5, min: 5, max: 175, len: 80},    //seg2
       {id:3, val: 5, min: 5, max: 175, len: 60},   //seg3
