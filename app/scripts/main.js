@@ -18,7 +18,7 @@ $(function() {
     //rangeLoop = false, //need to fix
     payload = [],
     servos = [
-      {id:0, val: 90, min: 47, max: 175},             //base
+      {id:0, val: 90, min: 5, max: 175},             //base
       {id:1, val: 90, min: 5, max: 175, len: 100},   //seg1
       {id:2, val: 5, min: 5, max: 175, len: 80},    //seg2
       {id:3, val: 5, min: 5, max: 175, len: 60},   //seg3
@@ -79,11 +79,12 @@ $(function() {
       var p = []; //percent of servo range
       var a = []; //servo angle value ie. 0 - 3.14
       var d = []; //servo angle in degrees ie. 0 - 360
-
       for (var i = 0; i < Sliders.servos.length; i++) {
-        p[i] = Math.floor(Number($('#servo' + i + 'value').val() * 100 / $('#servo' + i + 'max').val() - $('#servo' + i + 'min').val()));
+        var min = $('#servo' + i + 'min').val();
+        var max = $('#servo' + i + 'max').val();
+        p[i] = Math.floor(Number($('#servo' + i + 'value').val() * 100 / max - min));
         a[i] = p[i] * Math.PI / 100 ;
-        d[i] = p[i] * $('#servo' + i + 'max').val() / 100;
+        d[i] = Number(min) + (p[i] * max / 100);
       }
 
       //update arm angles and x and y
