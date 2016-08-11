@@ -80,11 +80,15 @@ $(function() {
       var a = []; //servo angle value ie. 0 - 3.14
       var d = []; //servo angle in degrees ie. 0 - 360
       for (var i = 0; i < Sliders.servos.length; i++) {
-        var min = $('#servo' + i + 'min').val();
-        var max = $('#servo' + i + 'max').val();
-        p[i] = Math.floor(Number($('#servo' + i + 'value').val() * 100 / max - min));
-        a[i] = p[i] * Math.PI / 100 ;
-        d[i] = Number(min) + (p[i] * max / 100);
+        var min = Number($('#servo' + i + 'min').val());
+        var max = Number($('#servo' + i + 'max').val());
+        var val = Number($('#servo' + i + 'value').val());
+        var range = max - min;
+
+        p[i] = Math.floor(val * 100 / range);
+        a[i] = p[i] * Math.PI / 100;
+        d[i] = min + (p[i] * range / 100);
+        console.log(d[0]);
       }
 
       //update arm angles and x and y
@@ -116,6 +120,7 @@ $(function() {
                return e.id != k;
           });
           payload.push(tempObj);
+          console.log(payload);
         }
       }
     },

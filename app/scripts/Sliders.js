@@ -45,10 +45,10 @@ var Sliders = Sliders || {
     // console.log('Sliders.updateSliders');
     for (var i = 0; i < this.num; i++) {
       var elm = 'servo' + i;
-      var min = $('#servo' + i + 'min').val();
-      var max = $('#servo' + i + 'max').val();
+      // var min = $('#servo' + i + 'min').val();
+      // var max = $('#servo' + i + 'max').val();
       var value = $('#servo' + i + 'value').val();
-      this.updateRange(i, elm, min, max);
+      // this.updateRange(i, elm, min, max);
       this.updateValue(i, elm, value, false);
     }
   },
