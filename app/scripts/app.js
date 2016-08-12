@@ -103,6 +103,8 @@ var MEEP = (function($) {
         var data = JSON.parse(botMsg.data);
         $('#data').fadeIn();
         if (data.status !== undefined) {
+
+          //write channel data to the spa page
           $('#data').html(data.status);
           console.log('data: ' + data.status);
         } else {
