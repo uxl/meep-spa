@@ -63,8 +63,9 @@ var Meep = (function($) {
         var data = JSON.parse(botMsg.data);
         $('#data').fadeIn();
         if (data.status !== undefined) {
+          //write channel data to the spa page
           $('#data').html(data.status);
-          console.log('data: ' + data.status);
+          console.log('data - undefined: ' + data.status);
         } else {
           for (var prop in data) {
             //update dial
@@ -75,10 +76,15 @@ var Meep = (function($) {
             if(prop == 'dial'){
               $('.dial').val(data[prop]).trigger('change');
             }
+            if(prop == 'servo'){
+              console.log('servo: ' + data[prop][0].id + ' degrees: ' + data[prop][0].deg);
+
+              $('#data').html('servo: ' + data[prop][0].id + ' degrees: ' + data[prop][0].deg);
+            }
             //console.log("wooo: " + data[prop] );
 
-            $('#data').html(prop + ' ' + data[prop].toString());
-            console.log(data);
+            // $('#data').html(prop + ' ' + data[prop].toString());
+            //console.log(data);
 
           }
         }

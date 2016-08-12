@@ -88,7 +88,7 @@ $(function() {
         p[i] = Math.floor(val * 100 / range);
         a[i] = p[i] * Math.PI / 100;
         d[i] = min + (p[i] * range / 100);
-        console.log(d[0]);
+        //console.log(d[0]);
       }
 
       //update arm angles and x and y
@@ -120,7 +120,7 @@ $(function() {
                return e.id != k;
           });
           payload.push(tempObj);
-          console.log(payload);
+          // console.log(payload);
         }
       }
     },
