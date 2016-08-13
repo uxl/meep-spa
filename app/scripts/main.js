@@ -18,8 +18,8 @@ $(function() {
     //rangeLoop = false, //need to fix
     payload = [],
     servos = [
-      {id:0, val: 90, min: 5, max: 175},             //base
-      {id:1, val: 90, min: 5, max: 175, len: 100},   //seg1
+      {id:0, val: 50, min: 5, max: 175},             //base
+      {id:1, val: 50, min: 5, max: 175, len: 100},   //seg1
       {id:2, val: 5, min: 5, max: 175, len: 80},    //seg2
       {id:3, val: 5, min: 5, max: 175, len: 60},   //seg3
       {id:4, val: 5, min: 5, max: 175},             //wrist
@@ -76,7 +76,7 @@ $(function() {
       }
     },
     renderArms = function() {
-      var p = []; //percent of servo range
+      var p = []; //percent of servo range ie. 0 - 100
       var a = []; //servo angle value ie. 0 - 3.14
       var d = []; //servo angle in degrees ie. 0 - 360
       for (var i = 0; i < Sliders.servos.length; i++) {
@@ -85,11 +85,14 @@ $(function() {
         var val = Number($('#servo' + i + 'value').val());
         var range = max - min;
 
-        p[i] = Math.floor(val * 100 / range);
-        a[i] = p[i] * Math.PI / 100;
-        d[i] = min + (p[i] * range / 100);
+        p[i] = val;//Math.floor((val - min) * 100 / range); //percent of total range
+        a[i] = p[i] * Math.PI / 100; //angle
+        d[i] = (p[i] * range / 100) + min;
+
         //console.log(d[0]);
+        console.log('percent: ' + (p[5] * range / 100));
       }
+
 
       //update arm angles and x and y
       //TODO: make dynamic
@@ -160,11 +163,10 @@ $(function() {
     Sliders.updateSliders();
     renderArms();
   });
-  //detect changes in slider and update arm
-  $(".sliders").change(function() {
-    Sliders.updateSliders();
-    renderArms();
-  });
+  // //detect changes in slider and update table (only table change updates arm)
+  // $(".sliders").change(function() {
+  //   //Sliders.updateSliders();
+  // });
   // Sliders.updateSliders();
   initGui();
   createArms();
