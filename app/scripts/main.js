@@ -8,7 +8,6 @@ $(function() {
     context = canvas.getContext("2d"),
     width = canvas.width = $('#canvas_col').width(),
     height = canvas.height = $('#canvas_col').height(),
-    orientation = -180, //up
 
     arm0 = null,
     arm1 = null,
@@ -18,12 +17,12 @@ $(function() {
     //rangeLoop = false, //need to fix
     payload = [],
     servos = [
-      {id:0, val: 50, min: 5, max: 175},             //base
-      {id:1, val: 50, min: 5, max: 175, len: 100},   //seg1
-      {id:2, val: 5, min: 5, max: 175, len: 80},    //seg2
-      {id:3, val: 5, min: 5, max: 175, len: 60},   //seg3
-      {id:4, val: 5, min: 5, max: 175},             //wrist
-      {id:5, val: 5, min: 5, max: 175}              //grip
+      {id:0, val: 50, min: 5, max: 175, len: 0, orient: 0, direction: 1},             //base
+      {id:1, val: 50, min: 5, max: 175, len: 60, orient: -180, direction: 1},   //seg1
+      {id:2, val: 5, min: 5, max: 175, len: 30, orient: 0, direction: -1},    //seg2
+      {id:3, val: 5, min: 5, max: 175, len: 10, orient: 0, direction: 1},    //seg3
+      {id:4, val: 5, min: 5, max: 175, len: 0, orient: 0, direction: 1},             //wrist
+      {id:5, val: 5, min: 5, max: 175, len: 0, orient: 0, direction: 1}              //grip
     ],
 
       //render varoiables
@@ -83,6 +82,7 @@ $(function() {
         var min = Number($('#servo' + i + 'min').val());
         var max = Number($('#servo' + i + 'max').val());
         var val = Number($('#servo' + i + 'value').val());
+        var orient = Number($('#servo' + i + 'orient').val());
         var range = max - min;
 
         p[i] = val;//Math.floor((val - min) * 100 / range); //percent of total range
@@ -90,7 +90,7 @@ $(function() {
         d[i] = (p[i] * range / 100) + min;
 
         //console.log(d[0]);
-        console.log('percent: ' + (p[5] * range / 100));
+        //console.log('percent: ' + (p[5] * range / 100));
       }
 
 
@@ -130,29 +130,25 @@ $(function() {
     //initialize values of gui from params at the tooltip
     initGui = function(){
       //set orientation
-      $('#orientation').val(orientation);
       for(var i = 0; i < servos.length; i++){
         //update input fields
         $('#servo'+ i +'len').val(servos[i].len);
         $('#servo'+ i +'min').val(servos[i].min);
         $('#servo'+ i +'max').val(servos[i].max);
         $('#servo'+ i +'value').val(servos[i].val);
+        $('#servo'+ i +'orient').val(servos[i].orient);
+        $('#servo'+ i +'direction').val(servos[i].direction);
         //update sliders
         //Sliders.updateSliders();
       }
     },
-    //update table and sliders if arm animating
-    updateConfig = function() {
-      return range * angle / Math.PI + Math.abs(orientation) / 2;
-    },
     //define arms
     createArms = function() {
       console.log("createArms");
-      orientation = $('#orientation').val();
 
-      arm0 = Arm.create(width / 2, height / 2, $('#servo1len').val(), $('#servo1min').val(), $('#servo1max').val(), orientation);
-      arm1 = Arm.create(arm0.getEndX(), arm0.getEndY(), $('#servo2len').val(), $('#servo2min').val(), $('#servo2max').val(), orientation);
-      arm2 = Arm.create(arm1.getEndX(), arm1.getEndY(), $('#servo3len').val(), $('#servo3min').val(), $('#servo3max').val(), orientation);
+      arm0 = Arm.create(width / 2, height / 2, $('#servo1len').val(), $('#servo1min').val(), $('#servo1max').val(), $('#servo0orient').val());
+      arm1 = Arm.create(arm0.getEndX(), arm0.getEndY(), $('#servo2len').val(), $('#servo2min').val(), $('#servo2max').val(), $('#servo1orient').val());
+      arm2 = Arm.create(arm1.getEndX(), arm1.getEndY(), $('#servo3len').val(), $('#servo3min').val(), $('#servo3max').val(), $('#servo2orient').val());
       //parent arms inside eachother
       arm1.parent = arm0;
       arm2.parent = arm1;

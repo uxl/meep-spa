@@ -12,8 +12,8 @@ var Arm = Arm || {
     var range = max - min;
     return range * Math.PI / 360;
   },
-  create: function(x, y, length, min, max, orientation) {
-    console.log('x:' + x, 'y:' + y, 'length:' + length, 'min:' + min, 'max:' + max, 'orientation:' + orientation);
+  create: function(x, y, length, min, max, orientation, direction) {
+    console.log('x:' + x, 'y:' + y, 'length:' + length, 'min:' + min, 'max:' + max, 'orientation:' + orientation, 'direction:' + direction);
     var obj = Object.create(this);
     obj.init(x, y, length, min, max, orientation);
     return obj;
