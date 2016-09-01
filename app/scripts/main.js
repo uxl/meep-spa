@@ -4,6 +4,32 @@
 
 $(function() {
 
+  //dial events
+  $(".dial").knob({
+
+    value: 0,
+    angleOffset: 0,
+    angleArc: 360,
+    'release' : function(v){
+      clearInterval(dialInt);
+      dialInt = null;
+    },
+    'change': function(v) {
+      if(dialInt === null){
+        dialInt = setInterval(function(){
+          sendMeep(dialVal);
+        }, 1000/8); //200 for normal
+      }
+      dialVal = {
+        "dial": Math.floor(v)
+      };
+      //send meep
+
+
+    }
+  });
+
+  //set up canvas
   var canvas = document.getElementById("canvas"),
     context = canvas.getContext("2d"),
     width = canvas.width = $('#canvas_col').width(),
