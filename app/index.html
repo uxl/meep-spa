@@ -33,23 +33,20 @@
   <!--[if lt IE 10]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-    <div id="myCarousel" class="carousel slide" data-ride="carousel">
-      <!-- Indicators -->
-      <ol class="carousel-indicators">
-        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-        <li data-target="#myCarousel" data-slide-to="1"></li>
 
-      </ol>
-      <div class="carousel-inner" role="listbox">
-        <div class="item active">
+  <div class="row">
+    <div id="connect" class="col-xs-10 col-xs-offset-1 btn btn-lg btn-danger" href="#">click to connect</div>
+
+    <div id="data" class="col-xs-12 btn text-center">disconnected</div>
+  </div>
+  </row>
+
+
+  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner" role="listbox">
+      <div class="item active">
 
         <div class="container selectoff">
-          <div class="row">
-            <div id="connect" class="col-xs-10 col-xs-offset-1 btn btn-lg btn-danger" href="#">click to connect</div>
-
-            <div id="data" class="col-xs-12 btn text-center">disconnected</div>
-          </div>
-          </row>
           <div class="row">
 
             <div class="col-xs-12 col-sm-6" id="canvas_col">
@@ -190,21 +187,26 @@
               </div>
             </div>
           </div>
+        </div>
       </div>
-    </div>
       <div class="item">
         <div class="col-xs-12 col-sm-6">
           <input type="text" value="0" class="dial spacer selectoff">
         </div>
       </div>
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
 
-      </div>
+      </ol>
     </div>
   </div>
+  </div>
 
-    <div class="navbar text-center navbar-fixed-bottom">
-      <p class="sig"><span class="glyphicon glyphicon-heart"></span> MullenLowe Creative Technology</p>
-    </div>
+  <div class="navbar text-center navbar-fixed-bottom">
+    <p class="sig"><span class="glyphicon glyphicon-heart"></span> MullenLowe Creative Technology</p>
+  </div>
 
   <!-- build:js(.) scripts/vendor.js -->
   <!-- bower:js -->

@@ -3,6 +3,8 @@
 //loop through those
 
 $(function() {
+  var dialVal = {},
+  dialInt = null;
 
   //dial events
   $(".dial").knob({
@@ -17,7 +19,7 @@ $(function() {
     'change': function(v) {
       if(dialInt === null){
         dialInt = setInterval(function(){
-          sendMeep(dialVal);
+          Meep.sendMeep(dialVal);
         }, 1000/8); //200 for normal
       }
       dialVal = {
