@@ -13,16 +13,16 @@ $(function() {
     arm1 = null,
     arm2 = null,
     angle = 0,
-    fps = 24,
+    fps = 30,
     //rangeLoop = false, //need to fix
     payload = [],
     servos = [
-      {id:0, val: 50, min: 5, max: 175, len: 0, orient: 0, direction: 1},             //base
-      {id:1, val: 50, min: 5, max: 175, len: 60, orient: -180, direction: 1},   //seg1
-      {id:2, val: 5, min: 5, max: 175, len: 30, orient: 0, direction: -1},    //seg2
-      {id:3, val: 5, min: 5, max: 175, len: 10, orient: 0, direction: 1},    //seg3
-      {id:4, val: 5, min: 5, max: 175, len: 0, orient: 0, direction: 1},             //wrist
-      {id:5, val: 5, min: 5, max: 175, len: 0, orient: 0, direction: 1}              //grip
+      {id:0, val: 50, min: 5, max: 175, len: 0, orient: 0, direction: 1},         //base
+      {id:1, val: 50, min: 5, max: 175, len: 60, orient: -180, direction: 1},     //seg1
+      {id:2, val: 5, min: 5, max: 175, len: 30, orient: 0, direction: -1},        //seg2
+      {id:3, val: 5, min: 5, max: 175, len: 10, orient: 0, direction: 1},         //seg3
+      {id:4, val: 5, min: 5, max: 175, len: 0, orient: 0, direction: 1},          //wrist
+      {id:5, val: 5, min: 5, max: 175, len: 0, orient: 0, direction: 1}           //grip
     ],
 
       //render varoiables
