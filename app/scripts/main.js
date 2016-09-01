@@ -13,7 +13,7 @@ $(function() {
     arm1 = null,
     arm2 = null,
     angle = 0,
-    fps = 6,
+    fps = 24,
     //rangeLoop = false, //need to fix
     payload = [],
     servos = [
