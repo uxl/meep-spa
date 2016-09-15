@@ -41,11 +41,15 @@
   </div>
   </row>
 
-
-  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+  <div id="spaCarousel" class="carousel slide text-center" data-pause="true" data-interval="false" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      <li data-target="#spaCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#spaCarousel" data-slide-to="1"></li>
+      <li data-target="#spaCarousel" data-slide-to="2"></li>
+    </ol>
     <div class="carousel-inner" role="listbox">
       <div class="item active">
-
         <div class="container selectoff">
           <div class="row">
 
@@ -77,130 +81,134 @@
                 <span class="sliderval" id="servo0label">0</span>
 
               </div>
-              <div class="config">
-                <table>
-                  <tr>
-                    <td></td>
-                    <td>min</td>
-                    <td>max</td>
-                    <td>length</td>
-                    <td>value</td>
-                    <td>orient</td>
-                    <td>direction</td>
-                  </tr>
-                  <tr>
-                    <td class="title">servo5</td>
-                    <td>
-                      <input class="servos" type="number" id="servo5min" value=""> </td>
-                    <td>
-                      <input class="servos" type="number" id="servo5max" value=""> </td>
-                    <td>
-                      <input class="servos" type="number" id="servo5len" value=""> </td>
-                    </td>
-                    <td>
-                      <input class="servos" type="number" id="servo5value" value=""> </td>
-                    <td>
-                      <input class="servos" type="number" id="servo5orient" value=""> </td>
-                    <td>
-                      <input class="servos" type="number" id="servo5direction" value=""> </td>
-                  </tr>
-                  <tr>
-                    <td class="title">servo4</td>
-                    <td>
-                      <input class="servos" type="number" id="servo4min" value=""> </td>
-                    <td>
-                      <input class="servos" type="number" id="servo4max" value=""> </td>
-                    <td>
-                      <input class="servos" type="number" id="servo4len" value=""> </td>
-                    <td>
-                      <input class="servos" type="number" id="servo4value" value=""> </td>
-                    <td>
-                      <input class="servos" type="number" id="servo4orient" value=""> </td>
-                    <td>
-                      <input class="servos" type="number" id="servo4direction" value=""> </td>
-
-                  </tr>
-                  <tr>
-                    <td class="title">servo3</td>
-                    <td>
-                      <input class="servos" type="number" id="servo3min" value=""> </td>
-                    <td>
-                      <input class="servos" type="number" id="servo3max" value=""> </td>
-                    <td>
-                      <input class="servos" type="number" id="servo3len" value=""> </td>
-                    <td>
-                      <input class="servos" type="number" id="servo3value" value=""> </td>
-                    <td>
-                      <input class="servos" type="number" id="servo3orient" value=""> </td>
-                    <td>
-                      <input class="servos" type="number" id="servo3direction" value=""> </td>
-                  </tr>
-                  <tr>
-                    <td class="title">servo2</td>
-                    <td>
-                      <input class="servos" type="number" id="servo2min" value=""> </td>
-                    <td>
-                      <input class="servos" type="number" id="servo2max" value=""> </td>
-                    <td>
-                      <input class="servos" type="number" id="servo2len" value=""> </td>
-                    <td>
-                      <input class="servos" type="number" id="servo2value" value=""> </td>
-                    <td>
-                      <input class="servos" type="number" id="servo2orient" value=""> </td>
-                    <td>
-                      <input class="servos" type="number" id="servo2direction" value=""> </td>
-
-                  </tr>
-                  <tr>
-                    <td class="title">servo1</td>
-                    <td>
-                      <input class="servos" type="number" id="servo1min" value=""> </td>
-                    <td>
-                      <input class="servos" type="number" id="servo1max" value=""> </td>
-                    <td>
-                      <input class="servos" type="number" id="servo1len" value=""> </td>
-                    <td>
-                      <input class="servos" type="number" id="servo1value" value=""> </td>
-                    <td>
-                      <input class="servos" type="number" id="servo1orient" value=""> </td>
-                    <td>
-                      <input class="servos" type="number" id="servo1direction" value=""> </td>
-
-                  </tr>
-                  <tr>
-                    <td class="title">servo0</td>
-                    <td>
-                      <input class="servos" type="number" id="servo0min" value=""> </td>
-                    <td>
-                      <input class="servos" type="number" id="servo0max" value=""> </td>
-                    <td>
-                      <input class="servos" type="number" id="servo0len" value=""> </td>
-                    </td>
-                    <td>
-                      <input class="servos" type="number" id="servo0value" value=""> </td>
-                    <td>
-                      <input class="servos" type="number" id="servo0orient" value=""> </td>
-                    <td>
-                      <input class="servos" type="number" id="servo0direction" value=""> </td>
-                  </tr>
-                </table>
-              </div>
             </div>
           </div>
         </div>
       </div>
       <div class="item">
         <div class="col-xs-12 col-sm-6">
-          <input type="text" value="0" class="dial spacer selectoff">
+          <input type="text" value="0" class="dial1 spacer selectoff">
+          dial
+        </div>
+        <div class="col-xs-12 col-sm-6">
+          <input type="text" value="0" class="dial2 spacer selectoff">
+          Bar
         </div>
       </div>
-      <!-- Indicators -->
-      <ol class="carousel-indicators">
-        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-        <li data-target="#myCarousel" data-slide-to="1"></li>
+      <div class="item">
+        <div class="config text-center">
+          <table align="center">
+            <tr>
+              <td></td>
+              <td>min</td>
+              <td>max</td>
+              <td>length</td>
+              <td>value</td>
+              <td>orient</td>
+              <td>direction</td>
+            </tr>
+            <tr>
+              <td class="title">servo5</td>
+              <td>
+                <input class="servos" type="number" id="servo5min" value=""> </td>
+              <td>
+                <input class="servos" type="number" id="servo5max" value=""> </td>
+              <td>
+                <input class="servos" type="number" id="servo5len" value=""> </td>
+              </td>
+              <td>
+                <input class="servos" type="number" id="servo5value" value=""> </td>
+              <td>
+                <input class="servos" type="number" id="servo5orient" value=""> </td>
+              <td>
+                <input class="servos" type="number" id="servo5direction" value=""> </td>
+            </tr>
+            <tr>
+              <td class="title">servo4</td>
+              <td>
+                <input class="servos" type="number" id="servo4min" value=""> </td>
+              <td>
+                <input class="servos" type="number" id="servo4max" value=""> </td>
+              <td>
+                <input class="servos" type="number" id="servo4len" value=""> </td>
+              <td>
+                <input class="servos" type="number" id="servo4value" value=""> </td>
+              <td>
+                <input class="servos" type="number" id="servo4orient" value=""> </td>
+              <td>
+                <input class="servos" type="number" id="servo4direction" value=""> </td>
 
-      </ol>
+            </tr>
+            <tr>
+              <td class="title">servo3</td>
+              <td>
+                <input class="servos" type="number" id="servo3min" value=""> </td>
+              <td>
+                <input class="servos" type="number" id="servo3max" value=""> </td>
+              <td>
+                <input class="servos" type="number" id="servo3len" value=""> </td>
+              <td>
+                <input class="servos" type="number" id="servo3value" value=""> </td>
+              <td>
+                <input class="servos" type="number" id="servo3orient" value=""> </td>
+              <td>
+                <input class="servos" type="number" id="servo3direction" value=""> </td>
+            </tr>
+            <tr>
+              <td class="title">servo2</td>
+              <td>
+                <input class="servos" type="number" id="servo2min" value=""> </td>
+              <td>
+                <input class="servos" type="number" id="servo2max" value=""> </td>
+              <td>
+                <input class="servos" type="number" id="servo2len" value=""> </td>
+              <td>
+                <input class="servos" type="number" id="servo2value" value=""> </td>
+              <td>
+                <input class="servos" type="number" id="servo2orient" value=""> </td>
+              <td>
+                <input class="servos" type="number" id="servo2direction" value=""> </td>
+
+            </tr>
+            <tr>
+              <td class="title">servo1</td>
+              <td>
+                <input class="servos" type="number" id="servo1min" value=""> </td>
+              <td>
+                <input class="servos" type="number" id="servo1max" value=""> </td>
+              <td>
+                <input class="servos" type="number" id="servo1len" value=""> </td>
+              <td>
+                <input class="servos" type="number" id="servo1value" value=""> </td>
+              <td>
+                <input class="servos" type="number" id="servo1orient" value=""> </td>
+              <td>
+                <input class="servos" type="number" id="servo1direction" value=""> </td>
+
+            </tr>
+            <tr>
+              <td class="title">servo0</td>
+              <td>
+                <input class="servos" type="number" id="servo0min" value=""> </td>
+              <td>
+                <input class="servos" type="number" id="servo0max" value=""> </td>
+              <td>
+                <input class="servos" type="number" id="servo0len" value=""> </td>
+              </td>
+              <td>
+                <input class="servos" type="number" id="servo0value" value=""> </td>
+              <td>
+                <input class="servos" type="number" id="servo0orient" value=""> </td>
+              <td>
+                <input class="servos" type="number" id="servo0direction" value=""> </td>
+            </tr>
+          </table>
+        </div>
+      </div>
     </div>
+    <!-- Carousel nav -->
+    <!-- <a class="carousel-control left" href="#spaCarousel" data-slide="prev">&lsaquo;</a>
+    <a class="carousel-control right" href="#spaCarousel" data-slide="next">&rsaquo;</a> -->
   </div>
   </div>
 
@@ -238,7 +246,6 @@
   <script src="scripts/Arm.js"></script>
   <script src="scripts/Meep.js"></script>
   <script src="scripts/jquery.knob.min.js"></script>
-  <script src="/bower_components/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js"></script>
   <script src="scripts/main.js"></script>
   <!-- endbuild -->
 

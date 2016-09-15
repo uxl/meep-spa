@@ -4,10 +4,12 @@
 
 $(function() {
   var dialVal = {},
-  dialInt = null;
+      barVal = {},
+      dialInt = null,
+      barInt = null;
 
   //dial events
-  $(".dial").knob({
+  $(".dial1").knob({
 
     value: 0,
     angleOffset: 0,
@@ -25,9 +27,26 @@ $(function() {
       dialVal = {
         "dial": Math.floor(v)
       };
-      //send meep
+    }
+  });
+  $(".dial2").knob({
 
-
+    value: 0,
+    angleOffset: 0,
+    angleArc: 360,
+    'release' : function(v){
+      clearInterval(barInt);
+      barInt = null;
+    },
+    'change': function(v) {
+      if(barInt === null){
+        barInt = setInterval(function(){
+          Meep.sendMeep(barVal);
+        }, 1000/8); //200 for normal
+      }
+      barVal = {
+        "bar": Math.floor(v)
+      };
     }
   });
 
@@ -114,7 +133,7 @@ $(function() {
         var range = max - min;
 
         p[i] = val;//Math.floor((val - min) * 100 / range); //percent of total range
-        a[i] = p[i] * Math.PI / 100; //angle
+        a[i] = p[i] * Math.PI / 100 + (Math.PI * orient); //angle
         d[i] = (p[i] * range / 100) + min;
 
         //console.log(d[0]);
@@ -174,9 +193,9 @@ $(function() {
     createArms = function() {
       console.log("createArms");
 
-      arm0 = Arm.create(width / 2, height / 2, $('#servo1len').val(), $('#servo1min').val(), $('#servo1max').val(), $('#servo0orient').val());
-      arm1 = Arm.create(arm0.getEndX(), arm0.getEndY(), $('#servo2len').val(), $('#servo2min').val(), $('#servo2max').val(), $('#servo1orient').val());
-      arm2 = Arm.create(arm1.getEndX(), arm1.getEndY(), $('#servo3len').val(), $('#servo3min').val(), $('#servo3max').val(), $('#servo2orient').val());
+      arm0 = Arm.create(width / 2, height / 2, $('#servo1len').val(), $('#servo1min').val(), $('#servo1max').val(), $('#servo0orient').val(),$('#servo1direction').val());
+      arm1 = Arm.create(arm0.getEndX(), arm0.getEndY(), $('#servo2len').val(), $('#servo2min').val(), $('#servo2max').val(), $('#servo1orient').val(),$('#servo1direction').val());
+      arm2 = Arm.create(arm1.getEndX(), arm1.getEndY(), $('#servo3len').val(), $('#servo3min').val(), $('#servo3max').val(), $('#servo2orient').val(),$('#servo2direction').val());
       //parent arms inside eachother
       arm1.parent = arm0;
       arm2.parent = arm1;
