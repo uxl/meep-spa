@@ -22,6 +22,8 @@
   <link rel="stylesheet" href="styles/main.css">
   <link rel="stylesheet" href="styles/meep.css">
   <link rel="stylesheet" href="styles/arm.css">
+  <link rel="stylesheet" href="/bower_components/bootstrap-toggle/css/bootstrap-toggle.min.css" />
+
   <!-- endbuild -->
   <!-- build:js scripts/vendor/modernizr.js -->
   <script src="/bower_components/modernizr/modernizr.js"></script>
@@ -58,12 +60,10 @@
             </div>
             <div class="col-xs-12 col-sm-6">
               <div class="sliders">
-                <b>Servo angles</b>
-                <br>
-                <br>
-
-                <input class="slider" id="servo5" type="number" data-slider-id="servo5" data-slider-min="0" data-slider-max="100" data-slider-tooltip="hide" data-slider-step="1" data-slider-value="0" />
-                <span class="sliderval" id="servo5label">0</span>
+                <input type="checkbox" id="servo5" data-toggle="toggle">
+<br><br>
+                <!-- <input class="slider" id="servo5" type="number" data-slider-id="servo5" data-slider-min="0" data-slider-max="100" data-slider-tooltip="hide" data-slider-step="1" data-slider-value="0" />
+                <span class="sliderval" id="servo5label">0</span> -->
 
                 <input class="slider" id="servo4" type="number" data-slider-id="servo4" data-slider-min="0" data-slider-max="100" data-slider-tooltip="hide" data-slider-step="1" data-slider-value="0" />
                 <span class="sliderval" id="servo4label">0</span>
@@ -242,6 +242,7 @@
 
 
   <!-- build:js scripts/main.js -->
+  <script src="/bower_components/bootstrap-toggle/js/bootstrap-toggle.min.js"></script>
   <script src="scripts/Sliders.js"></script>
   <script src="scripts/Arm.js"></script>
   <script src="scripts/Meep.js"></script>

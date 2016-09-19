@@ -8,6 +8,23 @@ $(function() {
       dialInt = null,
       barInt = null;
 
+      //grip toggle events
+      $('#servo5:checkbox').change(
+    function(){
+        if ($(this).is(':checked')) {
+          console.log("clicked");
+          var tempObj = {id: 5, deg: 5};
+          payload.push(tempObj);
+          renderArms();
+        }else{
+          //alert('checked');
+          console.log("bam");
+          var tempObj = {id: 5, deg: 175};
+          payload.push(tempObj);
+          renderArms();
+        }
+    });
+
   //dial events
   $(".dial1").knob({
 
@@ -49,6 +66,7 @@ $(function() {
       };
     }
   });
+
 
   //set up canvas
   var canvas = document.getElementById("canvas"),
@@ -160,7 +178,6 @@ $(function() {
       arm2.render(context);
 
       //check if new servo data
-
       for (var k = 0; k < Sliders.angle.length; k++) {
         if (Sliders.angle[k] != d[k]) {
           Sliders.angle[k] = d[k];
@@ -214,5 +231,5 @@ $(function() {
   initGui();
   createArms();
   startAnimating(fps);
-  Sliders.create(6);
+  Sliders.create(5);
 });
