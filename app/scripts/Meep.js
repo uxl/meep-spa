@@ -1,9 +1,9 @@
 /* global console, jQuery, $, TrackGA */
 // communications script
 
-(function () {
-   'use strict';
-   // this function is strict...
+(function() {
+  'use strict';
+  // this function is strict...
 }());
 
 var Meep = (function($) {
@@ -14,16 +14,29 @@ var Meep = (function($) {
     dialInt = null,
 
     init = function() {
+      //add touch slider
+      $('.carousel').swipe({
+
+        swipe: function(event, direction, distance, duration, fingerCount, fingerData) {
+
+          if (direction == 'left') $(this).carousel('next');
+          if (direction == 'right') $(this).carousel('prev');
+
+        },
+        allowPageScroll: 'vertical'
+
+      });
+
       //listen for enter key
       enterListener();
 
       console.log('Meep.init');
-      $('#meep').carousel("pause");
+      $('#meep').carousel('pause');
 
-      $("#register").on("click", function() {
-        if(checkName()){
-          $('#meep').carousel("next");
-        }else{
+      $('#register').on('click', function() {
+        if (checkName()) {
+          $('#meep').carousel('next');
+        } else {
           //error
           alert('name error');
         }
@@ -31,27 +44,27 @@ var Meep = (function($) {
 
       //disable veritcal scroll
       document.ontouchmove = function(event) {
-          event.preventDefault();
-        };
-        //disable selection
+        event.preventDefault();
+      };
+      //disable selection
       document.selectstart = function(event) {
-          event.preventDefault();
-        };
+        event.preventDefault();
+      };
 
-        //connect button events
+      //connect button events
       $('#connect').on('click', function() {
         startMeep();
       });
       startMeep();
     },
-    enterListener = function(){
+    enterListener = function() {
       document.onkeypress = function(e) {
         if (e.keyCode == 13) {
-          $('#meep').carousel("next");
+          $('#meep').carousel('next');
         }
-    };
-  },
-    checkName = function(){
+      };
+    },
+    checkName = function() {
       var name = $('#myname').val();
       return /^[A-Za-z\s]+$/.test(name);
     },
@@ -73,15 +86,15 @@ var Meep = (function($) {
             //TODO - Don't fire this if this is the user instance that made the change.
             // Or check that when we make changes to this it doesn't fire the release event.
 
-            if(prop == 'dial'){
+            if (prop == 'dial') {
               $('.dial').val(data[prop]).trigger('change');
             }
-            if(prop == 'servo'){
+            if (prop == 'servo') {
               console.log('servo: ' + data[prop][0].id + ' degrees: ' + data[prop][0].deg);
 
               $('#data').html('servo: ' + data[prop][0].id + ' degrees: ' + data[prop][0].deg);
             }
-            //console.log("wooo: " + data[prop] );
+            //console.log('wooo: ' + data[prop] );
 
             // $('#data').html(prop + ' ' + data[prop].toString());
             //console.log(data);
@@ -89,28 +102,28 @@ var Meep = (function($) {
           }
         }
         //if bot syn - acknowledge
-        if (data.status == "bot-syn") {
+        if (data.status == 'bot-syn') {
           sendMeep({
-            "status": "client-ack"
+            'status': 'client-ack'
           });
           connectGUI();
         }
         //if bot ack - GUI update
-        if (data.status == "bot-ack") {
+        if (data.status == 'bot-ack') {
           connectGUI();
         }
       };
       channel.onopen = function() {
         var msg = {
-          "status": "client-syn"
+          'status': 'client-syn'
         };
         sendMeep(msg);
       };
       channel.onclose = function(event) {
-        $('#data').html("Channel closed: " + event.reason);
-        console.log("Channel closed: " + event.reason);
-        $('#connect').removeClass("btn-success").addClass("btn-danger");
-        $('#connect').html("click to connect");
+        $('#data').html('Channel closed: ' + event.reason);
+        console.log('Channel closed: ' + event.reason);
+        $('#connect').removeClass('btn-success').addClass('btn-danger');
+        $('#connect').html('click to connect');
         return setTimeout(startMeep, 3000);
       };
       channel.onsignal = function(event) {
@@ -118,15 +131,15 @@ var Meep = (function($) {
       };
     },
     connectGUI = function() {
-      console.log("connectGUI");
-      $('#connect').removeClass("btn-danger").addClass("btn-success");
-      $('#connect').html("connected");
+      console.log('connectGUI');
+      $('#connect').removeClass('btn-danger').addClass('btn-success');
+      $('#connect').html('connected');
     },
     disconnectGUI = function() {
-      console.log("disconnectGUI");
-      $('#connect').removeClass("btn-success").addClass("btn-danger");
-      $('#led').removeClass("led-red-on");
-      $('#connect').html("disconnected");
+      console.log('disconnectGUI');
+      $('#connect').removeClass('btn-success').addClass('btn-danger');
+      $('#led').removeClass('led-red-on');
+      $('#connect').html('disconnected');
     },
     sendMeep = function(msg) {
       var data = JSON.stringify(msg);
