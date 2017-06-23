@@ -4,7 +4,9 @@
   "dependencies": {
     "bootstrap-sass": "~3.3.5",
     "modernizr": "~2.8.3",
-    "hydna": "^1.0.1"
+    "hydna": "^1.0.1",
+    "seiyria-bootstrap-slider": "^9.1.1",
+    "jquery-touchswipe": "^1.6.18"
   },
   "overrides": {
     "bootstrap-sass": {
