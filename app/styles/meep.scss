@@ -39,7 +39,7 @@ body { overflow: hidden;
   width:80%;
   margin-left:10%;
   margin-right:10%;
-  margin-top:5%;
+  margin-top:5px;
   color:#777;
   padding:10px;
 }
@@ -54,4 +54,24 @@ body { overflow: hidden;
     float: left;
     width: 50%;
   }
+}
+.carousel-indicators{
+  position:absolute;
+  top:0px;
+  height:20px;
+}
+//carousel
+.carousel-indicators li {
+  background-color: #999;
+  background-color: rgba(70,70,70,.25);
+}
+
+.carousel-indicators .active {
+  background-color: #444;
+}
+.carousel-inner{
+padding-top: 30px;
+}
+.carousel-control.left, .carousel-control.right {
+    background-image: none
 }

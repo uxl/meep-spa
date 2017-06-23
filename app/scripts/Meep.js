@@ -1,22 +1,15 @@
 /* global console, jQuery, $, TrackGA */
-// meep robot
-// Mullen - Wilkinson 2016
+// communications script
 
 (function () {
    'use strict';
    // this function is strict...
 }());
 
-var MEEP = (function($) {
+var Meep = (function($) {
   //vars
   var username = null,
     channel = null,
-    ledOn = {
-      "led": true
-    },
-    ledOff = {
-      "led": false
-    },
     dialVal = {},
     dialInt = null,
 
@@ -24,7 +17,7 @@ var MEEP = (function($) {
       //listen for enter key
       enterListener();
 
-      console.log('MEEP.init');
+      console.log('Meep.init');
       $('#meep').carousel("pause");
 
       $("#register").on("click", function() {
@@ -45,39 +38,6 @@ var MEEP = (function($) {
           event.preventDefault();
         };
 
-        //dial events
-      $(".dial").knob({
-
-        value: 0,
-        angleOffset: 0,
-        angleArc: 360,
-        'release' : function(v){
-          clearInterval(dialInt);
-          dialInt = null;
-        },
-        'change': function(v) {
-          if(dialInt === null){
-            dialInt = setInterval(function(){
-              sendMeep(dialVal);
-            }, 1000/8); //200 for normal
-          }
-          dialVal = {
-            "dial": Math.floor(v)
-          };
-          //send meep
-
-
-        }
-      });
-      //led button events
-      $('#led').on('mousedown touchstart', function() {
-        sendMeep(ledOn);
-        $('#led').addClass("led-red-on");
-      });
-      $('#led').on('mouseup touchend', function() {
-          sendMeep(ledOff);
-          $('#led').removeClass("led-red-on");
-        });
         //connect button events
       $('#connect').on('click', function() {
         startMeep();
@@ -103,21 +63,28 @@ var MEEP = (function($) {
         var data = JSON.parse(botMsg.data);
         $('#data').fadeIn();
         if (data.status !== undefined) {
-
           //write channel data to the spa page
           $('#data').html(data.status);
-          console.log('data: ' + data.status);
+          console.log('data - undefined: ' + data.status);
         } else {
           for (var prop in data) {
             //update dial
             // if(data.status)
+            //TODO - Don't fire this if this is the user instance that made the change.
+            // Or check that when we make changes to this it doesn't fire the release event.
+
             if(prop == 'dial'){
               $('.dial').val(data[prop]).trigger('change');
             }
+            if(prop == 'servo'){
+              console.log('servo: ' + data[prop][0].id + ' degrees: ' + data[prop][0].deg);
+
+              $('#data').html('servo: ' + data[prop][0].id + ' degrees: ' + data[prop][0].deg);
+            }
             //console.log("wooo: " + data[prop] );
 
-            $('#data').html(prop + ' ' + data[prop].toString());
-            console.log(data);
+            // $('#data').html(prop + ' ' + data[prop].toString());
+            //console.log(data);
 
           }
         }
@@ -173,10 +140,11 @@ var MEEP = (function($) {
       disconnectGUI();
     };
   return {
-    init: init
+    init: init,
+    sendMeep: sendMeep
   };
 }(jQuery));
 
 $(function() {
-  MEEP.init();
+  Meep.init();
 });
