@@ -23,7 +23,7 @@ var Meep = (function($) {
           if (direction == 'right') $(this).carousel('prev');
 
         },
-        allowPageScroll: 'vertical'
+        allowPageScroll:'vertical'
 
       });
 
