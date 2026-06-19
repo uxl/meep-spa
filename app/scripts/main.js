@@ -4,25 +4,31 @@
 
 $(function() {
   var dialVal = {},
-      barVal = {},
-      dialInt = null,
-      barInt = null;
+    barVal = {},
+    dialInt = null,
+    barInt = null;
 
-      //grip toggle events
-      $('#servo5:checkbox').change(
-    function(){
-        if ($(this).is(':checked')) {
-          console.log("clicked");
-          var tempObj = {id: 5, deg: 5};
-          payload.push(tempObj);
-          renderArms();
-        }else{
-          //alert('checked');
-          console.log("bam");
-          var tempObj = {id: 5, deg: 175};
-          payload.push(tempObj);
-          renderArms();
-        }
+  //grip toggle events
+  $('#servo5:checkbox').change(
+    function() {
+      if ($(this).is(':checked')) {
+        console.log("clicked");
+        var tempObj = {
+          id: 5,
+          deg: 5
+        };
+        payload.push(tempObj);
+        renderArms();
+      } else {
+        //alert('checked');
+        console.log("bam");
+        var tempObj = {
+          id: 5,
+          deg: 175
+        };
+        payload.push(tempObj);
+        renderArms();
+      }
     });
 
   //dial events
@@ -31,15 +37,15 @@ $(function() {
     value: 0,
     angleOffset: 0,
     angleArc: 360,
-    'release' : function(v){
+    'release': function(v) {
       clearInterval(dialInt);
       dialInt = null;
     },
     'change': function(v) {
-      if(dialInt === null){
-        dialInt = setInterval(function(){
+      if (dialInt === null) {
+        dialInt = setInterval(function() {
           Meep.sendMeep(dialVal);
-        }, 1000/8); //200 for normal
+        }, 1000 / 8); //200 for normal
       }
       dialVal = {
         "dial": Math.floor(v)
@@ -51,15 +57,15 @@ $(function() {
     value: 0,
     angleOffset: 0,
     angleArc: 360,
-    'release' : function(v){
+    'release': function(v) {
       clearInterval(barInt);
       barInt = null;
     },
     'change': function(v) {
-      if(barInt === null){
-        barInt = setInterval(function(){
+      if (barInt === null) {
+        barInt = setInterval(function() {
           Meep.sendMeep(barVal);
-        }, 1000/8); //200 for normal
+        }, 1000 / 8); //200 for normal
       }
       barVal = {
         "bar": Math.floor(v)
@@ -81,16 +87,63 @@ $(function() {
     fps = 30,
     //rangeLoop = false, //need to fix
     payload = [],
-    servos = [
-      {id:0, val: 50, min: 5, max: 175, len: 0, orient: 0, direction: 1},         //base
-      {id:1, val: 50, min: 5, max: 175, len: 60, orient: -180, direction: 1},     //seg1
-      {id:2, val: 5, min: 5, max: 175, len: 30, orient: 0, direction: -1},        //seg2
-      {id:3, val: 5, min: 5, max: 175, len: 10, orient: 0, direction: 1},         //seg3
-      {id:4, val: 5, min: 5, max: 175, len: 0, orient: 0, direction: 1},          //wrist
-      {id:5, val: 5, min: 5, max: 175, len: 0, orient: 0, direction: 1}           //grip
+    servos = [{
+        id: 0,
+        val: 50,
+        min: 5,
+        max: 175,
+        len: 0,
+        orient: 0,
+        direction: 1
+      }, //base
+      {
+        id: 1,
+        val: 50,
+        min: 5,
+        max: 175,
+        len: 60,
+        orient: -180,
+        direction: 1
+      }, //seg1
+      {
+        id: 2,
+        val: 5,
+        min: 5,
+        max: 175,
+        len: 30,
+        orient: 0,
+        direction: -1
+      }, //seg2
+      {
+        id: 3,
+        val: 5,
+        min: 5,
+        max: 175,
+        len: 10,
+        orient: 0,
+        direction: 1
+      }, //seg3
+      {
+        id: 4,
+        val: 5,
+        min: 5,
+        max: 175,
+        len: 0,
+        orient: 0,
+        direction: 1
+      }, //wrist
+      {
+        id: 5,
+        val: 5,
+        min: 5,
+        max: 175,
+        len: 0,
+        orient: 0,
+        direction: 1
+      } //grip
     ],
 
-      //render varoiables
+    //render varoiables
     stop = false,
     frameCount = 0,
     $results = $("#results"),
@@ -129,14 +182,16 @@ $(function() {
         then = now - (elapsed % fpsInterval);
 
         //sendpayload - object looks like this [{id:1, deg:90},{id:3, 10}]
-        if(payload.length > 0){
+        if (payload.length > 0) {
           //remove cmds that don't have
-          Meep.sendMeep({'servo': payload});
+          Meep.sendMeep({
+            'servo': payload
+          });
           payload = [];
         }
 
         renderArms();
-        Sliders.updateSliders();
+        //Sliders.updateSliders(); //throwing errors
       }
     },
     renderArms = function() {
@@ -150,7 +205,7 @@ $(function() {
         var orient = Number($('#servo' + i + 'orient').val());
         var range = max - min;
 
-        p[i] = val;//Math.floor((val - min) * 100 / range); //percent of total range
+        p[i] = val; //Math.floor((val - min) * 100 / range); //percent of total range
         a[i] = p[i] * Math.PI / 100 + (Math.PI * orient); //angle
         d[i] = (p[i] * range / 100) + min;
 
@@ -181,10 +236,13 @@ $(function() {
       for (var k = 0; k < Sliders.angle.length; k++) {
         if (Sliders.angle[k] != d[k]) {
           Sliders.angle[k] = d[k];
-          var tempObj = {id: k, deg: d[k]};
+          var tempObj = {
+            id: k,
+            deg: d[k]
+          };
           //remove id from previous payload
-          payload = $.grep(payload, function(e){
-               return e.id != k;
+          payload = $.grep(payload, function(e) {
+            return e.id != k;
           });
           payload.push(tempObj);
           // console.log(payload);
@@ -192,16 +250,16 @@ $(function() {
       }
     },
     //initialize values of gui from params at the tooltip
-    initGui = function(){
+    initGui = function() {
       //set orientation
-      for(var i = 0; i < servos.length; i++){
+      for (var i = 0; i < servos.length; i++) {
         //update input fields
-        $('#servo'+ i +'len').val(servos[i].len);
-        $('#servo'+ i +'min').val(servos[i].min);
-        $('#servo'+ i +'max').val(servos[i].max);
-        $('#servo'+ i +'value').val(servos[i].val);
-        $('#servo'+ i +'orient').val(servos[i].orient);
-        $('#servo'+ i +'direction').val(servos[i].direction);
+        $('#servo' + i + 'len').val(servos[i].len);
+        $('#servo' + i + 'min').val(servos[i].min);
+        $('#servo' + i + 'max').val(servos[i].max);
+        $('#servo' + i + 'value').val(servos[i].val);
+        $('#servo' + i + 'orient').val(servos[i].orient);
+        $('#servo' + i + 'direction').val(servos[i].direction);
         //update sliders
         //Sliders.updateSliders();
       }
@@ -210,9 +268,9 @@ $(function() {
     createArms = function() {
       console.log("createArms");
 
-      arm0 = Arm.create(width / 2, height / 2, $('#servo1len').val(), $('#servo1min').val(), $('#servo1max').val(), $('#servo0orient').val(),$('#servo1direction').val());
-      arm1 = Arm.create(arm0.getEndX(), arm0.getEndY(), $('#servo2len').val(), $('#servo2min').val(), $('#servo2max').val(), $('#servo1orient').val(),$('#servo1direction').val());
-      arm2 = Arm.create(arm1.getEndX(), arm1.getEndY(), $('#servo3len').val(), $('#servo3min').val(), $('#servo3max').val(), $('#servo2orient').val(),$('#servo2direction').val());
+      arm0 = Arm.create(width / 2, height / 2, $('#servo1len').val(), $('#servo1min').val(), $('#servo1max').val(), $('#servo0orient').val(), $('#servo1direction').val());
+      arm1 = Arm.create(arm0.getEndX(), arm0.getEndY(), $('#servo2len').val(), $('#servo2min').val(), $('#servo2max').val(), $('#servo1orient').val(), $('#servo1direction').val());
+      arm2 = Arm.create(arm1.getEndX(), arm1.getEndY(), $('#servo3len').val(), $('#servo3min').val(), $('#servo3max').val(), $('#servo2orient').val(), $('#servo2direction').val());
       //parent arms inside eachother
       arm1.parent = arm0;
       arm2.parent = arm1;
